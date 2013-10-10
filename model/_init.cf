@@ -26,6 +26,16 @@ typedef port as number matching self >= 0 and self < 65536
 
 typedef Address as Alias(alias = 0)
 
+entity Host extends std::Host:
+    """
+        A host that has an ip attribute for easy ip address access in the configuration
+        model.
+
+        :param ip       The ipaddress of this node
+    """
+    ip::ip ip
+end
+
 entity Ip:
     """
         Base class for all ip addresses
