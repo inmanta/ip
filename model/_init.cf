@@ -35,6 +35,7 @@ entity Host extends std::Host:
     """
     ip::ip ip
 end
+implement Host using std::hostDefaults
 
 entity Ip:
     """
