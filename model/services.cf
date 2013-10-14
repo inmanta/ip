@@ -52,8 +52,8 @@ Server listening_servers [0:] -- [1:] ip::Service services
 BaseClient clients [0:] -> [0:] BaseServer servers
 
 # A server and a client are always assigned to a host
-std::ManagedDevice host [1] -- [0:] Server servers
-std::ManagedDevice host [1] -- [0:] Client clients
+ip::Host host [1] -- [0:] Server servers
+ip::Host host [1] -- [0:] Client clients
 
 # A server listens on one or more ipaddresses
 Server server [0:] -- [1:] ip::Alias ips

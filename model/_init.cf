@@ -67,7 +67,7 @@ entity Router:
     """
 end
 
-std::Host host [1] -- [0:1] Router router
+ip::Host host [1] -- [0:1] Router router
 
 # only interfaces that are associated with a router can forward packets
 net::Interface ifaces [1:] -- [0:1] Router router
