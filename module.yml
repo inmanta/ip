@@ -1,0 +1,7 @@
+name: ip
+version: 0.1
+source: git@github.com:bartv/imp-ip
+license: Apache 2.0
+author: Bart Vanbrabant <bart.vanbrabant@cs.kuleuven.be>
+requires:
+    net: git@github.com:bartv/imp-net, ">= 0.1"
