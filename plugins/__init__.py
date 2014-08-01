@@ -18,7 +18,7 @@
 """
 from Imp.plugins.base import plugin
 from operator import attrgetter
-from Imp import iplib
+import iplib
 
 @plugin
 def hostname(fqdn : "string") -> "string":
