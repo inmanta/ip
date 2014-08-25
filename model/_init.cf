@@ -21,7 +21,7 @@ typedef ip as string matching /^([0-9]{1,3})(\.[0-9]{1,3}){3}$/
 typedef protocol as string matching
     self == "tcp" or self == "udp" or self == "icmp" or self == "sctp"
     
-typedef cidr as string matching /^([0-9]{1,3})(.[0-9]{1,3}){3}.[0-9]{1,2}$/
+typedef cidr as string matching /^([0-9]{1,3})(\.[0-9]{1,3}){3}.[0-9]{1,2}$/
 typedef port as number matching self >= 0 and self < 65536
 
 typedef Address as Alias(alias = 0)
