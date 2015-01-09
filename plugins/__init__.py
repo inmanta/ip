@@ -15,7 +15,7 @@
 
     Contect: bart@impera.io
 """
-from Imp.plugins.base import plugin
+from impera.plugins.base import plugin
 from operator import attrgetter
 import iplib
 
