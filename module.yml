@@ -1,6 +1,7 @@
-author: Bart Vanbrabant <bart.vanbrabant@cs.kuleuven.be>
+author: Bart Vanbrabant <bart@impera.io>
 license: Apache 2.0
 name: ip
-requires: {net: 'git@github.com:bartv/imp-net, ">= 0.1"'}
-source: git@github.com:bartv/imp-ip
-version: 0.1.4
+source: git@github.com:impera-io/ip
+version: 0.1.5
+requires:
+    net: git@github.com:impera-io/net, ">= 0.1"
