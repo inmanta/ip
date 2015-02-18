@@ -2,6 +2,7 @@ author: Bart Vanbrabant <bart@impera.io>
 license: Apache 2.0
 name: ip
 source: git@github.com:impera-io/ip
-version: 0.1.7
+version: 0.1.8
 requires:
-    net: git@github.com:impera-io/net, ">= 0.1"
+    net: git@git.impera.io:modules/net, ">= 0.1"
+    std: git@git.impera.io:modules/std, ">= 0.1"
