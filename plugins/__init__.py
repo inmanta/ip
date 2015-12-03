@@ -43,6 +43,14 @@ def network(ip : "ip::ip", cidr : "string") -> "string":
     return str(net.network_ip)
 
 @plugin
+def cidr_to_network(cidr : "string") -> "string":
+    """
+        Given cidr return the network address
+    """
+    net = iplib.CIDR(cidr)
+    return str(net.network_ip)
+
+@plugin
 def netmask(cidr : "number") -> "ip::ip":
     """
         Given the cidr, return the netmask
