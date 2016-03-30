@@ -1,9 +1,9 @@
-author: Bart Vanbrabant <bart@impera.io>
+author: Bart Vanbrabant <bart@inmanta.com>
 license: Apache 2.0
 name: ip
-source: git@git.impera.io:modules/ip
+source: git@git.inmanta.com:modules/ip
 version: 0.1.10
 requires:
-    net: git@git.impera.io:modules/net, ">= 0.1"
-    std: git@git.impera.io:modules/std, ">= 0.1"
+    net: git@git.inmanta.com:modules/net, master
+    std: git@git.inmanta.com:modules/std, master
 
