@@ -45,7 +45,7 @@ end
 implement Server using std::none
 
 # server provides one ore more services
-Server listening_servers [0:] -- [1:] ip::Service services
+BaseServer listening_servers [0:] -- [1:] ip::Service services
 
 # clients can to connect to a server
 BaseClient clients [0:] -> [0:] BaseServer servers
