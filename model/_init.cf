@@ -103,14 +103,15 @@ implement PortRange using std::none
 
 typedef Port as PortRange(high = 0)
 
+Service service_dst [0:] -- [0:] PortRange dst_range
+Service service_src [0:] -- [0:] PortRange src_range
+
 entity Service:
     """
         Define a service as a protocol and a source and destination port range
     """
     protocol    proto
-    PortRange   dst_range
-    PortRange   src_range
-end
+end 
 
 typedef DstService as Service(src_range = ip::services::all_range)
 
