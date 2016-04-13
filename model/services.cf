@@ -140,12 +140,12 @@ proxy_range = ip::Port(low = 8080)
 ping_req = ip::Service(
     proto = "icmp",
     dst_range = ping_range,
-    src_range = all_range,
+    src_range = all_range
 )
 ping_res = ip::Service(
     proto = "icmp",
     dst_range = pong_range,
-    src_range = all_range,
+    src_range = all_range
 )
 ping = [ping_req, ping_res]
 
