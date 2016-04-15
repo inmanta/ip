@@ -19,63 +19,65 @@ from impera.plugins.base import plugin
 from operator import attrgetter
 import iplib
 
+
 @plugin
-def hostname(fqdn : "string") -> "string":
+def hostname(fqdn: "string") -> "string":
     """
         Return the hostname part of the fqdn
     """
     return fqdn.split(".")[0]
 
+
 @plugin
-def networkaddress(ip : "ip::Alias") -> "string":
+def networkaddress(ip: "ip::Alias") -> "string":
     """
         Return the network address
     """
     net = iplib.CIDR(ip.ipaddress, ip.netmask)
     return str(net.network_ip)
 
+
 @plugin
-def network(ip : "ip::ip", cidr : "string") -> "string":
+def network(ip: "ip::ip", cidr: "string") -> "string":
     """
         Given the ip and the cidr, return the network address
     """
     net = iplib.CIDR("%s/%s" % (ip, cidr))
     return str(net.network_ip)
 
+
 @plugin
-def cidr_to_network(cidr : "string") -> "string":
+def cidr_to_network(cidr: "string") -> "string":
     """
         Given cidr return the network address
     """
     net = iplib.CIDR(cidr)
     return str(net.network_ip)
 
+
 @plugin
-def netmask(cidr : "number") -> "ip::ip":
+def netmask(cidr: "number") -> "ip::ip":
     """
         Given the cidr, return the netmask
     """
     inp = iplib.detect_nm(cidr)
     return str(iplib.convert_nm(cidr, notation="dot", inotation=inp))
 
+
 @plugin
-def concat(host : "std::hoststring", domain : "std::hoststring") -> "std::hoststring":
+def concat(host: "std::hoststring", domain: "std::hoststring") -> "std::hoststring":
     """
         Concat host and domain
     """
     return "%s.%s" % (host, domain)
 
+
 @plugin
-def net_to_nm(network_addr : "string") -> "string":
+def net_to_nm(network_addr: "string") -> "string":
     net = iplib.CIDR(network_addr)
     return str(net.netmask)
 
-@plugin
-def connect_to(scope : "ip::services::VirtualScope") -> "string":
-    scope = scope[0]._get_instance()
-    if hasattr(scope, "hostname"):
-        return scope.hostname
-    else:
-        raise Exception("Unable to determine connection endpoint")
 
-    return ""
+@plugin
+def connect_to(scope: "ip::services::VirtualScope") -> "string":
+    return scope[0].hostname

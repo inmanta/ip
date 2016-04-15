@@ -45,7 +45,7 @@ end
 implement Server using std::none
 
 # server provides one ore more services
-Server listening_servers [0:] -- [1:] ip::Service services
+BaseServer listening_servers [0:] -- [0:] ip::Service services
 
 # clients can to connect to a server
 BaseClient clients [0:] -> [0:] BaseServer servers
@@ -55,7 +55,7 @@ ip::Host host [1] -- [0:] Server servers
 ip::Host host [1] -- [0:] Client clients
 
 # A server listens on one or more ipaddresses
-Server server [0:] -- [1:] ip::Alias ips
+Server server [0:] -- [0:] ip::Alias ips
 
 # Virtual client or servers
 entity VirtualSide:
@@ -140,12 +140,12 @@ proxy_range = ip::Port(low = 8080)
 ping_req = ip::Service(
     proto = "icmp",
     dst_range = ping_range,
-    src_range = all_range,
+    src_range = all_range
 )
 ping_res = ip::Service(
     proto = "icmp",
     dst_range = pong_range,
-    src_range = all_range,
+    src_range = all_range
 )
 ping = [ping_req, ping_res]
 
