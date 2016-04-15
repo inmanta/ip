@@ -15,7 +15,7 @@
 
     Contact: bart@inmanta.com
 """
-from impera.plugins.base import plugin
+from impera.plugins import plugin
 from operator import attrgetter
 import iplib
 
