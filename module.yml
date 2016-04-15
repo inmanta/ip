@@ -4,6 +4,6 @@ name: ip
 source: git@git.inmanta.com:modules/ip
 version: 0.1.13
 requires:
-    net: git@git.inmanta.com:modules/net, master
-    std: git@git.inmanta.com:modules/std, master
+    net: git@git.inmanta.com:modules/net, >= 0.2.4
+    std: git@git.inmanta.com:modules/std, >= 0.5
 
