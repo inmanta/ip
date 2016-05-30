@@ -1,9 +1,7 @@
-author: Bart Vanbrabant <bart@inmanta.com>
+author: Inmanta <code@inmanta.com>
 license: Apache 2.0
 name: ip
-source: git@git.inmanta.com:modules/ip
-version: 0.1.13
+version: '0.2'
 requires:
-    net: git@git.inmanta.com:modules/net, >= 0.2.4
-    std: git@git.inmanta.com:modules/std, >= 0.5
-
+- net
+- std

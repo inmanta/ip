@@ -13,9 +13,9 @@
     See the License for the specific language governing permissions and
     limitations under the License.
 
-    Contact: bart@inmanta.com
+    Contact: code@inmanta.com
 """
-from impera.plugins import plugin
+from inmanta.plugins import plugin
 from operator import attrgetter
 import iplib
 
