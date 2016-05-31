@@ -17,6 +17,7 @@
 """
 import net
 import std
+import ip::services
 
 typedef ip as string matching /^([0-9]{1,3})(\.[0-9]{1,3}){3}$/
 typedef protocol as string matching
