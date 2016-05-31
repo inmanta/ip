@@ -3,4 +3,4 @@ validate:
     tags:
         - docker
     script:
-        - inmanta -vvv modules validate
+        - inmanta -vvv modules validate -r git@git.inmanta.com:modules/
