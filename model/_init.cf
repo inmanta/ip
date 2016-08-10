@@ -39,16 +39,16 @@ entity Host extends std::Host:
 end
 implement Host using std::hostDefaults
 
-entity Ip:
+entity IP:
     """
         Base class for all ip addresses
     """
-    ip ipaddress
+    ip::ip v4
 end
 
-implement Ip using std::none
+implement IP using std::none
 
-entity Alias extends Ip:
+entity Alias extends IP:
     ip      netmask
     number  alias
     bool    dhcp = false    
