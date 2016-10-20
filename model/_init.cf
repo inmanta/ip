@@ -43,15 +43,15 @@ entity IP:
     """
         Base class for all ip addresses
     """
-    ip::ip v4
+    ip v4="0.0.0.0"
 end
 
 implement IP using std::none
 
 entity Alias extends IP:
-    ip      netmask
-    number  alias
-    bool    dhcp = false    
+    ip      netmask="0.0.0.0"
+    number  alias=0
+    bool    dhcp = false
 end
 
 entity Network:
