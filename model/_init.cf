@@ -50,8 +50,8 @@ implement IP using std::none
 
 entity Alias extends IP:
     ip      netmask="0.0.0.0"
-    number  alias=0
-    bool    dhcp = false
+    number alias=0
+    bool   dhcp=false
 end
 
 entity Network:
