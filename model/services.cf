@@ -51,7 +51,7 @@ implement Server using std::none
 BaseServer listening_servers [0:] -- [0:] ip::Service services
 
 # clients can to connect to a server
-BaseClient clients [0:] -> [0:] BaseServer servers
+BaseClient clients [0:] -- [0:] BaseServer servers
 
 # A server and a client are always assigned to a host
 ip::Host host [1] -- [0:] Server servers
