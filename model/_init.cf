@@ -1,5 +1,5 @@
 """
-    Copyright 2016 Inmanta
+    Copyright 2017 Inmanta
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -33,11 +33,23 @@ entity Host extends std::Host:
         A host that has an ip attribute for easy ip address access in the configuration
         model.
 
-        :param ip       The ipaddress of this node
+        :attr ip: The ipaddress of this node
+        :attr remote_agent: Start the mgmt agent for this node on the server and use remote io (ssh)
+        :attr remote_user: The remote user for the remote agent to login with
+        :attr remote_port: The remote port for this remote agent to use.
     """
     ip::ip ip
+    bool remote_agent=false
+    string remote_user="root"
+    port remote_port=22
 end
 implement Host using std::hostDefaults
+
+implementation agentConfig for std::HostConfig:
+    std::AgentConfig(autostart=true, agentname=host.name, uri="ssh://{{host.remote_user}}@{{host.ip}}:{{host.remote_port}}")
+end
+
+implement std::HostConfig using agentConfig when host.ip is defined and remote_agent
 
 entity IP:
     """
