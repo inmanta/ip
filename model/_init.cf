@@ -46,10 +46,10 @@ end
 implement Host using std::hostDefaults
 
 implementation agentConfig for std::HostConfig:
-    std::AgentConfig(autostart=true, agentname=host.name, uri="ssh://{{host.remote_user}}@{{host.ip}}:{{host.remote_port}}")
+    std::AgentConfig(autostart=true, agentname=host.name, uri="ssh://{{host.remote_user}}@{{host.ip}}:{{host.remote_port}}", provides=host)
 end
 
-implement std::HostConfig using agentConfig when host.ip is defined and remote_agent
+implement std::HostConfig using agentConfig when host.ip is defined and host.remote_agent
 
 entity IP:
     """
