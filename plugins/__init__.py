@@ -18,6 +18,7 @@
 from inmanta.plugins import plugin
 from operator import attrgetter
 import iplib
+import netaddr
 
 
 @plugin
@@ -81,3 +82,28 @@ def net_to_nm(network_addr: "string") -> "string":
 @plugin
 def connect_to(scope: "ip::services::VirtualScope") -> "string":
     return scope[0].hostname
+
+
+@plugin
+def ipnet(addr: "ip::cidr", what: "string") -> "string":
+    net = netaddr.IPNetwork(addr)
+    if what == "ip":
+        return str(net.ip)
+
+    elif what == "prefixlen":
+        return str(net.prefixlen)
+
+    elif what == "netmask":
+        return str(net.netmask)
+
+    elif what == "network":
+        return str(net.network)
+
+
+@plugin
+def ipindex(addr: "ip::cidr", position: "number") -> "string":
+    """
+        Return the address at position in the network.
+    """
+    net = netaddr.IPNetwork(addr)
+    return str(net[position])
