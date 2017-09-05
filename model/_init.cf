@@ -15,7 +15,6 @@
 
     Contact: code@inmanta.com
 """
-import net
 import std
 import ip::services
 
@@ -25,8 +24,6 @@ typedef protocol as string matching
     
 typedef cidr as string matching /^([0-9]{1,3})(\.[0-9]{1,3}){3}.[0-9]{1,2}$/
 typedef port as number matching self >= 0 and self < 65536
-
-typedef Address as Alias(alias = 0)
 
 entity Host extends std::Host:
     """
@@ -66,6 +63,9 @@ entity Alias extends IP:
     bool   dhcp=false
 end
 
+entity Address extends Alias:
+end
+
 entity Network:
     """
         A network in this infrastructure.
@@ -76,39 +76,6 @@ entity Network:
     bool    dhcp
 end
 
-entity Router:
-    """
-        This interface is used to indicate that a host may function as a router
-    """
-end
-
-ip::Host host [1] -- [0:1] Router router
-
-# only interfaces that are associated with a router can forward packets
-net::Interface ifaces [1:] -- [0:1] Router router
-net::Interface iface [1] -- [0:] Alias ip_address
-
-entity Gateway:
-    """
-        Model a gateway in a network
-    """
-    string  ipaddress
-    number  metric
-end
-
-entity Route:
-    """
-        Model a route to a network
-    """
-    string network
-    string netmask
-    string gateway
-end
-
-Route routes [0:] -- [1:] net::Interface iface
-
-Gateway gateway [0:] -- [1] Network network
-
 entity PortRange:
     port    low
     port    high
@@ -116,10 +83,14 @@ end
 
 implement PortRange using std::none
 
-typedef Port as PortRange(high = 0)
+entity Port extends PortRange:
+    port    high=0
+end
 
-Service service_dst [0:] -- [0:] PortRange dst_range
-Service service_src [0:] -- [0:] PortRange src_range
+implement Port using std::none
+
+Service.dst_range [0:] -- PortRange
+Service.src_range [0:] -- PortRange
 
 entity Service:
     """
@@ -128,12 +99,11 @@ entity Service:
     protocol    proto
 end 
 
-typedef DstService as Service(src_range = ip::services::all_range)
+entity DstService extends Service:
+end
 
-implement Gateway using std::none
-implement Route using std::none
 implement Service using std::none
+implement DstService using std::none
 implement Alias using std::none
+implement Address using std::none
 implement Network using std::none
-implement Router using std::none
-

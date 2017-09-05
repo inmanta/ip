@@ -1,5 +1,5 @@
 """
-    Copyright 2016 Inmanta
+    Copyright 2017 Inmanta
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -169,4 +169,3 @@ tcp_all   = DstService(proto = "tcp", dst_range = all_range)
 all       = [udp_all, tcp_all]
 ftp       = DstService(proto = "tcp", dst_range = ftp_range)
 dhcp      = Service(proto = "udp", src_range = dhcp_range, dst_range = dhcp_range)
-
