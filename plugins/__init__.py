@@ -107,3 +107,12 @@ def ipindex(addr: "ip::cidr", position: "number") -> "string":
     """
     net = netaddr.IPNetwork(addr)
     return str(net[position])
+
+
+@plugin
+def is_valid_ip(addr: "string") -> "bool":
+    try:
+        netaddr.IPAddress(addr)
+        return True
+    except Exception:
+        return False

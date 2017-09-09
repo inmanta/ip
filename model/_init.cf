@@ -18,7 +18,7 @@
 import std
 import ip::services
 
-typedef ip as string matching /^(([0-9]{1,3})(\.[0-9]{1,3}){3}|)$/
+typedef ip as string matching ip::is_valid_ip(self) == true
 typedef protocol as string matching
     self == "tcp" or self == "udp" or self == "icmp" or self == "sctp" or self == "all"
     
