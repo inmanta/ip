@@ -112,6 +112,32 @@ def ipindex(addr: "ip::cidr", position: "number") -> "string":
 @plugin
 def is_valid_ip(addr: "string") -> "bool":
     try:
+        net = netaddr.IPAddress(addr)
+        return net.version == 4
+    except Exception:
+        return False
+
+
+@plugin
+def is_valid_cidr_v10(addr: "string") -> "bool":
+    """
+        Validate if the string matches a v6 or a v4 network in CIDR notation
+    """
+    if "/" not in addr:
+        return False
+    try:
+        netaddr.IPNetwork(addr)
+        return True
+    except Exception:
+        return False
+
+
+@plugin
+def is_valid_ip_v10(addr: "string") -> "bool":
+    """
+        Validate if the string matches a v6 or v4 address
+    """
+    try:
         netaddr.IPAddress(addr)
         return True
     except Exception:
