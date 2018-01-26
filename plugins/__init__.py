@@ -142,3 +142,11 @@ def is_valid_ip_v10(addr: "string") -> "bool":
         return True
     except Exception:
         return False
+
+
+@plugin
+def add(addr: "ip::ip_v10", n: "number") -> "ip::ip_v10":
+    """
+        Add a number to the given ip.
+    """
+    return str(netaddr.IPAddress(addr) + n)
