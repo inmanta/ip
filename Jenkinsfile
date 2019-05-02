@@ -19,7 +19,7 @@ pipeline {
       steps{
         script{
           sh 'rm -rf $INMANTA_TEST_ENV; python3 -m venv $INMANTA_TEST_ENV; $INMANTA_TEST_ENV/bin/python3 -m pip install -U  git+https://github.com/inmanta/inmanta.git git+https://github.com/inmanta/pytest-inmanta.git'
-          dir('exec'){
+          dir('ip'){
             sh '$INMANTA_TEST_ENV/bin/python3 -m pytest --junitxml=junit.xml -vvv tests'
           }
         }
@@ -29,7 +29,7 @@ pipeline {
   post {
     always{
       always {
-            junit 'exec/junit.xml'
+            junit 'ip/junit.xml'
         }
     }
   }
