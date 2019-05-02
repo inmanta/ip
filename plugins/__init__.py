@@ -16,8 +16,6 @@
     Contact: code@inmanta.com
 """
 from inmanta.plugins import plugin
-from operator import attrgetter
-import iplib
 import netaddr
 
 
@@ -30,21 +28,12 @@ def hostname(fqdn: "string") -> "string":
 
 
 @plugin
-def networkaddress(ip: "ip::Alias") -> "string":
-    """
-        Return the network address
-    """
-    net = iplib.CIDR(ip.ipaddress, ip.netmask)
-    return str(net.network_ip)
-
-
-@plugin
 def network(ip: "ip::ip", cidr: "string") -> "string":
     """
         Given the ip and the cidr, return the network address
     """
-    net = iplib.CIDR("%s/%s" % (ip, cidr))
-    return str(net.network_ip)
+    net = netaddr.IPNetwork(f"{ip}/{cidr}")
+    return str(net.network)
 
 
 @plugin
@@ -52,8 +41,8 @@ def cidr_to_network(cidr: "string") -> "string":
     """
         Given cidr return the network address
     """
-    net = iplib.CIDR(cidr)
-    return str(net.network_ip)
+    net = netaddr.IPNetwork(cidr)
+    return str(net.network)
 
 
 @plugin
@@ -61,8 +50,8 @@ def netmask(cidr: "number") -> "ip::ip":
     """
         Given the cidr, return the netmask
     """
-    inp = iplib.detect_nm(cidr)
-    return str(iplib.convert_nm(cidr, notation="dot", inotation=inp))
+    net = netaddr.IPNetwork(f"255.255.255.255/{cidr}")
+    return str(net.netmask)
 
 
 @plugin
@@ -75,13 +64,8 @@ def concat(host: "std::hoststring", domain: "std::hoststring") -> "std::hoststri
 
 @plugin
 def net_to_nm(network_addr: "string") -> "string":
-    net = iplib.CIDR(network_addr)
+    net = netaddr.IPNetwork(network_addr)
     return str(net.netmask)
-
-
-@plugin
-def connect_to(scope: "ip::services::VirtualScope") -> "string":
-    return scope[0].hostname
 
 
 @plugin
