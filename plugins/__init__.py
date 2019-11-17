@@ -85,7 +85,7 @@ def connect_to(scope: "ip::services::VirtualScope") -> "string":
 
 
 @plugin
-def ipnet(addr: "ip::cidr", what: "string") -> "string":
+def ipnet(addr: "ip::cidr_v10", what: "string") -> "string":
     net = netaddr.IPNetwork(addr)
     if what == "ip":
         return str(net.ip)
@@ -101,7 +101,7 @@ def ipnet(addr: "ip::cidr", what: "string") -> "string":
 
 
 @plugin
-def ipindex(addr: "ip::cidr", position: "number") -> "string":
+def ipindex(addr: "ip::cidr_v10", position: "number") -> "string":
     """
         Return the address at position in the network.
     """
@@ -117,6 +117,35 @@ def is_valid_ip(addr: "string") -> "bool":
     except Exception:
         return False
 
+
+@plugin
+def is_valid_cidr_v6(addr: "string") -> "bool":
+    if "/" not in addr:
+        return False
+    try:
+        net = netaddr.IPNetwork(addr)
+        return net.version == 6
+    except Exception:
+        return False
+
+@plugin
+def is_valid_ip_v6(addr: "string") -> "bool":
+    try:
+        net = netaddr.IPAddress(addr)
+        return net.version == 6
+    except Exception:
+        return False
+
+
+@plugin
+def is_valid_cidr(addr: "string") -> "bool":
+    if "/" not in addr:
+        return False
+    try:
+        net = netaddr.IPNetwork(addr)
+        return net.version == 4
+    except Exception:
+        return False
 
 @plugin
 def is_valid_cidr_v10(addr: "string") -> "bool":
