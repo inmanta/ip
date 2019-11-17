@@ -1,6 +1,6 @@
 import pytest
 import inmanta.ast
-
+from common import assert_compilation_error
 
 def run_test(project, thetype, value, is_ok):
     def make():
@@ -98,3 +98,63 @@ def test_ip_v10(project, ip, is_ok):
 )
 def test_cidr_v10(project, ip, is_ok):
     run_test(project, "ip::cidr_v10", ip, is_ok)
+
+
+def test_is_valid_ip(project):
+    ip = "10.20.30.40"
+    assert project.get_plugin_function("is_valid_ip")(ip)
+    ip = "10.555.30"
+    assert not project.get_plugin_function("is_valid_ip")(ip)
+    ip = "10.20.30.256"
+    assert not project.get_plugin_function("is_valid_ip")(ip)
+
+
+def test_is_valid_ip_in_model_invalid_ip(project):
+    model = """
+        import ip
+        
+        ip::is_valid_ip(true)
+    """
+    assert_compilation_error(project, model, "Invalid value 'True', expected String")
+
+
+def test_is_valid_cidr_v10(project):
+    cidr = "::/0"
+    assert project.get_plugin_function("is_valid_cidr_v10")(cidr)
+    cidr = "::/128"
+    assert project.get_plugin_function("is_valid_cidr_v10")(cidr)
+    cidr = "1111::1/128"
+    assert project.get_plugin_function("is_valid_cidr_v10")(cidr)
+    cidr = "1111::1/129"
+    assert not project.get_plugin_function("is_valid_cidr_v10")(cidr)
+    cidr = "ftff::1/64"
+    assert not project.get_plugin_function("is_valid_cidr_v10")(cidr)
+
+
+def test_test_is_valid_cidr_v10_in_model_invalid_ip(project):
+    model = """
+        import ip
+
+        ip::is_valid_cidr_v10(true)
+    """
+    assert_compilation_error(project, model, "Invalid value 'True', expected String")
+
+
+def test_is_valid_ip_v10(project):
+    ip = "::"
+    assert project.get_plugin_function("is_valid_ip_v10")(ip)
+    ip = "1111::1"
+    assert project.get_plugin_function("is_valid_ip_v10")(ip)
+    ip = "1:fffq::1"
+    assert not project.get_plugin_function("is_valid_ip_v10")(ip)
+    ip = "1111::fffq"
+    assert not project.get_plugin_function("is_valid_ip_v10")(ip)
+
+
+def test_test_is_valid_ip_v10_in_model_invalid_ip(project):
+    model = """
+        import ip
+
+        ip::is_valid_ip_v10(true)
+    """
+    assert_compilation_error(project, model, "Invalid value 'True', expected String")
