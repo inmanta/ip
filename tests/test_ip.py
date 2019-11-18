@@ -1,16 +1,6 @@
 import pytest
 from inmanta.ast import RuntimeException
-
-
-def assert_compilation_error(project, model, error_message):
-    exception_occured = False
-    try:
-        project.compile(model)
-    except RuntimeException as e:
-        exception_occured = True
-        assert error_message in e.msg
-    assert exception_occured
-
+from common import assert_compilation_error
 
 def test_hostname(project):
     hostname = "test"
@@ -125,15 +115,20 @@ def test_net_to_nm_in_model_invalid_network_address(project):
 
 
 @pytest.mark.parametrize(
-    "what, expected_result",
-    [("ip", "192.168.33.23"),
-     ("prefixlen", "16"),
-     ("netmask", "255.255.0.0"),
-     ("network", "192.168.0.0"),
-     ("invalid", None)])
-def test_ipnet(project, what, expected_result):
-    cidr = "192.168.33.23/16"
-    assert project.get_plugin_function("ipnet")(cidr, what) == expected_result
+        "cidr,ip,prefixlen,netmask,network",
+        [
+            ("192.168.5.3/16", "192.168.5.3", "16", "255.255.0.0", "192.168.0.0"),
+            ("2001:0db8:85a3::8a2e:0370:7334/64", "2001:db8:85a3::8a2e:370:7334", "64", "ffff:ffff:ffff:ffff::", "2001:db8:85a3::")
+        ]
+)
+def test_ipnet(project, cidr, ip, prefixlen, netmask, network):
+    ipnet = project.get_plugin_function("ipnet")
+
+    assert ipnet(cidr, "ip") == ip
+    assert ipnet(cidr, "prefixlen") == prefixlen
+    assert ipnet(cidr, "netmask") == netmask
+    assert ipnet(cidr, "network") == network
+    assert ipnet(cidr, "invalid") == None
 
 
 def test_ipnet_in_model_invalid_cidr(project):
@@ -146,11 +141,19 @@ def test_ipnet_in_model_invalid_cidr(project):
     assert_compilation_error(project, model, "Invalid value '192.125.125.22', constraint does not match")
 
 
-def test_ipindex(project):
-    cidr = "10.10.11.0/24"
-    position = 22
-    ip = "10.10.11.22"
-    assert project.get_plugin_function("ipindex")(cidr, position) == ip
+@pytest.mark.parametrize(
+        "cidr, idx, result",
+        [
+            ("192.168.5.3/16", 1, "192.168.0.1"),
+            ("192.168.5.3/16", 256, "192.168.1.0"),
+            ("2001:0db8:85a3::8a2e:0370:7334/64", 1, "2001:db8:85a3::1"),
+            ("2001:0db8:85a3::8a2e:0370:7334/64", 10000, "2001:db8:85a3::2710"),
+            ("2001:0db8:85a3::8a2e:0370:7334/64", 100000, "2001:db8:85a3::1:86a0")
+        ]
+)
+def test_ipindex(project, cidr, idx, result):
+    ipnet = project.get_plugin_function("ipindex")
+    assert ipnet(cidr, idx) == result
 
 
 def test_ipindex_in_model_invalid_cidr(project):
@@ -171,66 +174,6 @@ def test_ipindex_in_model_invalid_position(project):
         ip::ipindex("192.125.125.22/24", "16")
     """
     assert_compilation_error(project, model, "Invalid value '16', expected Number")
-
-
-def test_is_valid_ip(project):
-    ip = "10.20.30.40"
-    assert project.get_plugin_function("is_valid_ip")(ip)
-    ip = "10.555.30"
-    assert not project.get_plugin_function("is_valid_ip")(ip)
-    ip = "10.20.30.256"
-    assert not project.get_plugin_function("is_valid_ip")(ip)
-
-
-def test_is_valid_ip_in_model_invalid_ip(project):
-    model = """
-        import ip
-        
-        ip::is_valid_ip(true)
-    """
-    assert_compilation_error(project, model, "Invalid value 'True', expected String")
-
-
-def test_is_valid_cidr_v10(project):
-    cidr = "::/0"
-    assert project.get_plugin_function("is_valid_cidr_v10")(cidr)
-    cidr = "::/128"
-    assert project.get_plugin_function("is_valid_cidr_v10")(cidr)
-    cidr = "1111::1/128"
-    assert project.get_plugin_function("is_valid_cidr_v10")(cidr)
-    cidr = "1111::1/129"
-    assert not project.get_plugin_function("is_valid_cidr_v10")(cidr)
-    cidr = "ftff::1/64"
-    assert not project.get_plugin_function("is_valid_cidr_v10")(cidr)
-
-
-def test_test_is_valid_cidr_v10_in_model_invalid_ip(project):
-    model = """
-        import ip
-
-        ip::is_valid_cidr_v10(true)
-    """
-    assert_compilation_error(project, model, "Invalid value 'True', expected String")
-
-
-def test_is_valid_ip_v10(project):
-    ip = "::"
-    assert project.get_plugin_function("is_valid_ip_v10")(ip)
-    ip = "1111::1"
-    assert project.get_plugin_function("is_valid_ip_v10")(ip)
-    ip = "1:fffq::1"
-    assert not project.get_plugin_function("is_valid_ip_v10")(ip)
-    ip = "1111::fffq"
-    assert not project.get_plugin_function("is_valid_ip_v10")(ip)
-
-
-def test_test_is_valid_ip_v10_in_model_invalid_ip(project):
-    model = """
-        import ip
-
-        ip::is_valid_ip_v10(true)
-    """
-    assert_compilation_error(project, model, "Invalid value 'True', expected String")
 
 
 def test_add(project):
