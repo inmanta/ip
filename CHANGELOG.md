@@ -2,4 +2,4 @@
 
 ## Added 
 
-- added cidr_c6 and ip_v6
+- added cidr_v6 and ip_v6
