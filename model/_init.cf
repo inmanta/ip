@@ -52,13 +52,13 @@ entity Host extends std::Host:
     string remote_user="root"
     port remote_port=22
 end
-implement Host using std::hostDefaults
+implement Host using parents
 
-implementation agentConfig for std::HostConfig:
-    std::AgentConfig(autostart=true, agentname=host.name, uri="ssh://{{host.remote_user}}@{{host.ip}}:{{host.remote_port}}", provides=host)
+implementation agentConfig for Host:
+    std::AgentConfig(autostart=true, agentname=name, uri="ssh://{{remote_user}}@{{ip}}:{{remote_port}}", provides=self.provides)
 end
 
-implement std::HostConfig using agentConfig when host.ip is defined and host.remote_agent
+implement Host using agentConfig when self.ip is defined and self.remote_agent
 
 entity IP:
     """
