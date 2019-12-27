@@ -15,8 +15,8 @@
 
     Contact: code@inmanta.com
 """
-from inmanta.plugins import plugin
 import netaddr
+from inmanta.plugins import plugin
 
 
 @plugin
@@ -112,6 +112,7 @@ def is_valid_cidr_v6(addr: "string") -> "bool":
     except Exception:
         return False
 
+
 @plugin
 def is_valid_ip_v6(addr: "string") -> "bool":
     try:
@@ -130,6 +131,7 @@ def is_valid_cidr(addr: "string") -> "bool":
         return net.version == 4
     except Exception:
         return False
+
 
 @plugin
 def is_valid_cidr_v10(addr: "string") -> "bool":
