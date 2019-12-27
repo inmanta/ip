@@ -1,41 +1,54 @@
 pipeline {
   agent any
-  triggers {
+  triggers{
     pollSCM '* * * * *'
-    cron 'H H(2-5) * * *'
+    cron(BRANCH_NAME == "master" ? "H H(2-5) * * *": "")
   }
-  options {
-    disableConcurrentBuilds()
-    checkoutToSubdirectory('ip')
+  options { disableConcurrentBuilds() }
+  parameters {
+    string(name: 'pypi_index', defaultValue: 'https://artifacts.internal.inmanta.com/inmanta/stable', description: 'Changes the index used to install pytest-inmanta (And only pytest-inmanta)')
   }
-
-  environment {
-      INMANTA_MODULE_REPO='https://github.com/inmanta/'
-      INMANTA_TEST_ENV="${env.WORKSPACE}/env"
-  }
-
   stages {
-    stage("test"){
+    stage("setup"){
       steps{
         script{
-          dir('ip'){
-            sh """rm -rf $INMANTA_TEST_ENV;
-                  python3 -m venv $INMANTA_TEST_ENV;
-                  $INMANTA_TEST_ENV/bin/python3 -m pip install -r requirements.txt;
-                  $INMANTA_TEST_ENV/bin/python3 -m pip install -U inmanta pytest-inmanta
-               """
-            sh '$INMANTA_TEST_ENV/bin/python3 -m pytest --junitxml=junit.xml -vvv tests'
-          }
+          sh'''
+          python3 -m venv ${WORKSPACE}/env
+          ${WORKSPACE}/env/bin/pip install -r requirements.txt
+          ${WORKSPACE}/env/bin/pip install -r requirements.dev.txt
+          # make sure pytest inmanta is the required version
+          ${WORKSPACE}/env/bin/pip install pytest-inmanta -i pypi_index
+          '''
+        }
+      }
+    }
+    stage("code linting"){
+      steps{
+        script{
+          sh'''
+          ${WORKSPACE}/env/bin/flake8 plugins tests
+          '''
+        }
+      }
+    }
+    stage("tests"){
+      steps{
+        script{
+          sh'''
+          ${WORKSPACE}/env/bin/pytest tests -v --junitxml=junit.xml
+          '''
+          junit 'junit.xml'
         }
       }
     }
   }
-  post {
+  post{
     always{
-      always {
-            junit 'ip/junit.xml'
-        }
+      script{
+        sh'''
+        ${WORKSPACE}/env/bin/pip uninstall -y pytest-inmanta
+        '''
+      }
     }
   }
-
 }
