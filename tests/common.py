@@ -1,5 +1,6 @@
 from inmanta.ast import RuntimeException
 
+
 def assert_compilation_error(project, model, error_message):
     exception_occured = False
     try:
