@@ -6,7 +6,7 @@ pipeline {
   }
   options { disableConcurrentBuilds() }
   parameters {
-    string(name: 'pypi_index', defaultValue: 'https://artifacts.internal.inmanta.com/inmanta/stable', description: 'Changes the index used to install pytest-inmanta (And only pytest-inmanta)')
+    booleanParam(name:"pytest_inmanta_dev" ,defaultValue: false, description: 'Changes the index used to install pytest-inmanta to the inmanta dev index')
   }
   stages {
     stage("setup"){
@@ -14,11 +14,14 @@ pipeline {
         script{
           sh'''
           python3 -m venv ${WORKSPACE}/env
+          ${WORKSPACE}/env/bin/pip install -U pip
           ${WORKSPACE}/env/bin/pip install -r requirements.txt
           ${WORKSPACE}/env/bin/pip install -r requirements.dev.txt
           # make sure pytest inmanta is the required version
-          ${WORKSPACE}/env/bin/pip install pytest-inmanta -i pypi_index
           '''
+          if (params.pytest_inmanta_dev) {
+            sh"""${WORKSPACE}/env/bin/pip install --pre -U pytest-inmanta -i https://artifacts.internal.inmanta.com/inmanta/dev"""
+          }
         }
       }
     }
