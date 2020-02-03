@@ -58,8 +58,8 @@ implementation agentConfig for std::HostConfig:
     std::AgentConfig(
         autostart=true,
         agentname=host.name,
-        uri="ssh://{{host.remote_user}}@{{host.ip}}:{{host.remote_port}}{% if host.python_cmd %}?python={{ host.python_cmd }}{% endif %}",
-        provides=host
+        uri=std::template("ip/host_uri.j2"),
+        provides=host,
     )
 end
 
