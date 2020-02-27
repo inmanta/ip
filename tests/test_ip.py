@@ -31,9 +31,7 @@ def test_network_in_model_invalid_ip_address(project):
 
         ip::network("192.168.333.40", "24")
     """
-    assert_compilation_error(
-        project, model, "Invalid value '192.168.333.40', constraint does not match"
-    )
+    assert_compilation_error(project, model, "Invalid value '192.168.333.40'")
 
 
 def test_network_in_model_invalid_cidr(project):
@@ -90,9 +88,7 @@ def test_concat_in_model_invalid_host(project):
 
         ip::concat("a$b", "domain.test")
     """
-    assert_compilation_error(
-        project, model, "Invalid value 'a$b', constraint does not match"
-    )
+    assert_compilation_error(project, model, "Invalid value 'a$b'")
 
 
 def test_concat_in_model_invalid_domain(project):
@@ -101,9 +97,7 @@ def test_concat_in_model_invalid_domain(project):
 
         ip::concat("test", "domain.test!")
     """
-    assert_compilation_error(
-        project, model, "Invalid value 'domain.test!', constraint does not match"
-    )
+    assert_compilation_error(project, model, "Invalid value 'domain.test!'")
 
 
 def test_net_to_nm(project):
@@ -151,9 +145,7 @@ def test_ipnet_in_model_invalid_cidr(project):
         # Pass ip instead of cidr
         ip::ipnet("192.125.125.22", "ip")
     """
-    assert_compilation_error(
-        project, model, "Invalid value '192.125.125.22', constraint does not match"
-    )
+    assert_compilation_error(project, model, "Invalid value '192.125.125.22'")
 
 
 @pytest.mark.parametrize(
@@ -178,9 +170,7 @@ def test_ipindex_in_model_invalid_cidr(project):
         # Pass ip instead of cidr
         ip::ipindex("192.125.125.22", 16)
     """
-    assert_compilation_error(
-        project, model, "Invalid value '192.125.125.22', constraint does not match"
-    )
+    assert_compilation_error(project, model, "Invalid value '192.125.125.22'")
 
 
 def test_ipindex_in_model_invalid_position(project):
@@ -214,9 +204,7 @@ def test_add_in_model_invalid_ipv4_addr(project):
 
         ip::add("192.125.123.1111", 8)
     """
-    assert_compilation_error(
-        project, model, "Invalid value '192.125.123.1111', constraint does not match"
-    )
+    assert_compilation_error(project, model, "Invalid value '192.125.123.1111'")
 
 
 def test_add_in_model_invalid_ipv6_addr(project):
@@ -225,9 +213,7 @@ def test_add_in_model_invalid_ipv6_addr(project):
 
         ip::add("ffff::fffff", 128)
     """
-    assert_compilation_error(
-        project, model, "Invalid value 'ffff::fffff', constraint does not match"
-    )
+    assert_compilation_error(project, model, "Invalid value 'ffff::fffff'")
 
 
 def test_add_in_model_invalid_n_value(project):
