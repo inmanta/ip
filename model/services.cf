@@ -48,17 +48,17 @@ end
 implement Server using std::none
 
 # server provides one ore more services
-BaseServer listening_servers [0:] -- [0:] ip::Service services
+BaseServer.services [0:] -- ip::Service.listening_servers [0:]
 
 # clients can to connect to a server
-BaseClient clients [0:] -- [0:] BaseServer servers
+BaseClient.servers [0:] -- BaseServer.clients [0:]
 
 # A server and a client are always assigned to a host
-ip::Host host [1] -- [0:] Server servers
-ip::Host host [1] -- [0:] Client clients
+ip::Host.servers [0:] -- Server.host [1]
+ip::Host.clients [0:] -- Client.host [1]
 
 # A server listens on one or more ipaddresses
-Server server [0:] -- [0:] ip::Alias ips
+Server.ips [0:] -- ip::Alias.server [0:]
 
 # Virtual client or servers
 entity VirtualSide:
@@ -91,7 +91,7 @@ entity VirtualScope:
     """
 end
 
-VirtualSide side [0:] -- [0:] VirtualScope scope
+VirtualSide.scope [0:] -- VirtualScope.side [0:]
 
 entity VirtualIp extends VirtualScope:
     """
