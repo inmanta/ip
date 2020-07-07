@@ -1,3 +1,6 @@
+# v 1.1.2
+- pin transitive dependencies
+
 # v 1.1.1
 - use new relation syntax
 
