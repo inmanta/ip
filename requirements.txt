@@ -1,5 +1,4 @@
-netaddr==0.8.0
+netaddr~=0.8.0
 
-# Transitive dependencies
-importlib-resources==3.0.0
-zipp==3.1.0
+importlib-resources~=3.0.0
+zipp~=3.1.0

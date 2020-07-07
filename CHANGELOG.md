@@ -1,3 +1,6 @@
+# v 1.1.3
+- pin dependencies using ~=
+
 # v 1.1.2
 - pin transitive dependencies
 
