@@ -1,7 +1,8 @@
 # Description
 
-* Short description here 
-* Closes *Add ticket reference here*
+* Short description here *
+
+closes *Add ticket reference here*
 
 # Merge procedure
 
