@@ -22,7 +22,7 @@ from inmanta.plugins import plugin
 @plugin
 def hostname(fqdn: "string") -> "string":
     """
-        Return the hostname part of the fqdn
+    Return the hostname part of the fqdn
     """
     return fqdn.split(".")[0]
 
@@ -30,7 +30,7 @@ def hostname(fqdn: "string") -> "string":
 @plugin
 def network(ip: "ip::ip", cidr: "string") -> "string":
     """
-        Given the ip and the cidr, return the network address
+    Given the ip and the cidr, return the network address
     """
     net = netaddr.IPNetwork(f"{ip}/{cidr}")
     return str(net.network)
@@ -39,7 +39,7 @@ def network(ip: "ip::ip", cidr: "string") -> "string":
 @plugin
 def cidr_to_network(cidr: "string") -> "string":
     """
-        Given cidr return the network address
+    Given cidr return the network address
     """
     net = netaddr.IPNetwork(cidr)
     return str(net.network)
@@ -48,7 +48,7 @@ def cidr_to_network(cidr: "string") -> "string":
 @plugin
 def netmask(cidr: "number") -> "ip::ip":
     """
-        Given the cidr, return the netmask
+    Given the cidr, return the netmask
     """
     net = netaddr.IPNetwork(f"255.255.255.255/{cidr}")
     return str(net.netmask)
@@ -57,7 +57,7 @@ def netmask(cidr: "number") -> "ip::ip":
 @plugin
 def concat(host: "std::hoststring", domain: "std::hoststring") -> "std::hoststring":
     """
-        Concat host and domain
+    Concat host and domain
     """
     return "%s.%s" % (host, domain)
 
@@ -87,7 +87,7 @@ def ipnet(addr: "ip::cidr_v10", what: "string") -> "string":
 @plugin
 def ipindex(addr: "ip::cidr_v10", position: "number") -> "string":
     """
-        Return the address at position in the network.
+    Return the address at position in the network.
     """
     net = netaddr.IPNetwork(addr)
     return str(net[position])
@@ -136,7 +136,7 @@ def is_valid_cidr(addr: "string") -> "bool":
 @plugin
 def is_valid_cidr_v10(addr: "string") -> "bool":
     """
-        Validate if the string matches a v6 or a v4 network in CIDR notation
+    Validate if the string matches a v6 or a v4 network in CIDR notation
     """
     if "/" not in addr:
         return False
@@ -150,7 +150,7 @@ def is_valid_cidr_v10(addr: "string") -> "bool":
 @plugin
 def is_valid_ip_v10(addr: "string") -> "bool":
     """
-        Validate if the string matches a v6 or v4 address
+    Validate if the string matches a v6 or v4 address
     """
     try:
         netaddr.IPAddress(addr)
@@ -162,6 +162,6 @@ def is_valid_ip_v10(addr: "string") -> "bool":
 @plugin
 def add(addr: "ip::ip_v10", n: "number") -> "ip::ip_v10":
     """
-        Add a number to the given ip.
+    Add a number to the given ip.
     """
     return str(netaddr.IPAddress(addr) + n)
