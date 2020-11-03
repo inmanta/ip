@@ -1,3 +1,6 @@
+# v 1.1.5
+- Remove the importlib-resources dependency
+
 # v 1.1.4
 - Update dependencies
 
