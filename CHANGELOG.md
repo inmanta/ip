@@ -1,3 +1,6 @@
+# v 1.1.6
+- Use inmanta-dev-dependencies package
+
 # v 1.1.5
 - Remove the importlib-resources dependency
 
