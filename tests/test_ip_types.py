@@ -165,3 +165,16 @@ def test_test_is_valid_ip_v10_in_model_invalid_ip(project):
         ip::is_valid_ip_v10(true)
     """
     assert_compilation_error(project, model, "Invalid value 'True', expected String")
+
+
+def test_is_valid_netmask(project):
+    netmask = "255.255.255.0"
+    assert project.get_plugin_function("is_valid_netmask")(netmask)
+    netmask = "255.255.252.0"
+    assert project.get_plugin_function("is_valid_netmask")(netmask)
+    netmask = "255.128.0.0"
+    assert project.get_plugin_function("is_valid_netmask")(netmask)
+    netmask = "255.128.0.255"
+    assert not project.get_plugin_function("is_valid_netmask")(netmask)
+    netmask = "255.120.0.0"
+    assert not project.get_plugin_function("is_valid_netmask")(netmask)

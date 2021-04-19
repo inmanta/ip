@@ -165,3 +165,14 @@ def add(addr: "ip::ip_v10", n: "number") -> "ip::ip_v10":
     Add a number to the given ip.
     """
     return str(netaddr.IPAddress(addr) + n)
+
+
+@plugin
+def is_valid_netmask(netmask: "string") -> "bool":
+    """
+        Validate if the string matches a netmask
+    """
+    try:
+        return netaddr.IPAddress(netmask).is_netmask()
+    except Exception:
+        return False
