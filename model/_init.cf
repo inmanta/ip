@@ -37,6 +37,11 @@ typedef ip_v10 as string matching ip::is_valid_ip_v10(self) == true
     A string type that matches both v4 and v6 cidraddresses (hence the v10)
 """
 
+typedef mask as string matching ip::is_valid_netmask(self)
+"""
+    A string type that matches a netmask
+"""
+
 entity Host extends std::Host:
     """
         A host that has an ip attribute for easy ip address access in the configuration
