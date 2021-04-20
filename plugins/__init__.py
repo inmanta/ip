@@ -170,7 +170,7 @@ def add(addr: "ip::ip_v10", n: "number") -> "ip::ip_v10":
 @plugin
 def is_valid_netmask(netmask: "string") -> "bool":
     """
-        Validate if the string matches a netmask
+    Validate if the string matches a netmask
     """
     try:
         return netaddr.IPAddress(netmask).is_netmask()
