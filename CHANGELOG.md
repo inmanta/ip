@@ -1,3 +1,5 @@
+# v 1.3.0
+- Added `get_ip_addr_numerically` plugin
 # v 1.1.7
 - Update development dependencies 
 # v 1.1.6
