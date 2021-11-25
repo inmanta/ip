@@ -223,3 +223,12 @@ def test_add_in_model_invalid_n_value(project):
         ip::add("ffff::ffff", "128")
     """
     assert_compilation_error(project, model, "Invalid value '128', expected Number")
+
+
+def test_get_ip_addr_numerically(project) -> None:
+    get_ip_addr_numerically = project.get_plugin_function("get_ip_addr_numerically")
+    assert get_ip_addr_numerically("192.168.2.1") == 3232236033
+    assert (
+        get_ip_addr_numerically("2001:0db8:85a3::8a2e:0370:7334")
+        == 42540766452641154071740215577757643572
+    )

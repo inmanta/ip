@@ -176,3 +176,8 @@ def is_valid_netmask(netmask: "string") -> "bool":
         return netaddr.IPAddress(netmask).is_netmask()
     except Exception:
         return False
+
+
+@plugin
+def get_ip_addr_numerically(addr: "ip::ip_v10") -> "number":
+    return int(netaddr.IPAddress(addr))
