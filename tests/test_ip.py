@@ -116,25 +116,42 @@ def test_net_to_nm_in_model_invalid_network_address(project):
 
 
 @pytest.mark.parametrize(
-    "cidr,ip,prefixlen,netmask,network",
+    "cidr,ip,prefixlen,netmask,network,broadcast",
     [
-        ("192.168.5.3/16", "192.168.5.3", "16", "255.255.0.0", "192.168.0.0"),
+        (
+            "192.168.5.3/16",
+            "192.168.5.3",
+            "16",
+            "255.255.0.0",
+            "192.168.0.0",
+            "192.168.255.255",
+        ),
         (
             "2001:0db8:85a3::8a2e:0370:7334/64",
             "2001:db8:85a3::8a2e:370:7334",
             "64",
             "ffff:ffff:ffff:ffff::",
             "2001:db8:85a3::",
+            "2001:db8:85a3:0:ffff:ffff:ffff:ffff",
         ),
     ],
 )
-def test_ipnet(project, cidr, ip, prefixlen, netmask, network):
+def test_ipnet(
+    project,
+    cidr: str,
+    ip: str,
+    prefixlen: str,
+    netmask: str,
+    network: str,
+    broadcast: str,
+):
     ipnet = project.get_plugin_function("ipnet")
 
     assert ipnet(cidr, "ip") == ip
     assert ipnet(cidr, "prefixlen") == prefixlen
     assert ipnet(cidr, "netmask") == netmask
     assert ipnet(cidr, "network") == network
+    assert ipnet(cidr, "broadcast") == broadcast
     assert ipnet(cidr, "invalid") is None
 
 

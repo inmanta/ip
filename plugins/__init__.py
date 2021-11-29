@@ -82,6 +82,8 @@ def ipnet(addr: "ip::cidr_v10", what: "string") -> "string":
 
     elif what == "network":
         return str(net.network)
+    elif what == "broadcast":
+        return str(net.broadcast)
 
 
 @plugin
