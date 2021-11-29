@@ -70,6 +70,10 @@ def net_to_nm(network_addr: "string") -> "string":
 
 @plugin
 def ipnet(addr: "ip::cidr_v10", what: "string") -> "string":
+    """
+    For the given cidr in the `addr` parameter, return the
+    information requested via the `what` parameter.
+    """
     net = netaddr.IPNetwork(addr)
     if what == "ip":
         return str(net.ip)
@@ -182,4 +186,7 @@ def is_valid_netmask(netmask: "string") -> "bool":
 
 @plugin
 def get_ip_addr_numerically(addr: "ip::ip_v10") -> "number":
+    """
+    Return the given IP address in its numerical form.
+    """
     return int(netaddr.IPAddress(addr))
