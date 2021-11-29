@@ -185,7 +185,7 @@ def is_valid_netmask(netmask: "string") -> "bool":
 
 
 @plugin
-def get_ip_addr_numerically(addr: "ip::ip_v10") -> "number":
+def get_ip_addr_numerically(addr: "ip::ip_v10") -> "int":
     """
     Return the given IP address in its numerical form.
     """
