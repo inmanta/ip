@@ -5,3 +5,7 @@ updates:
   schedule:
     interval: daily
   open-pull-requests-limit: 99
+  ignore:
+    # zipp>=3.7 requires python>=3.7
+    - dependency-name: "zipp"
+      versions: [">=3.7"]
