@@ -1,9 +1,5 @@
-# v 1.2.2
-- Update dependency versions
-
 # v 1.1.7
 - Update development dependencies 
-
 # v 1.1.6
 - Use inmanta-dev-dependencies package
 
