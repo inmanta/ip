@@ -80,6 +80,13 @@ def ipnet(addr: "ip::cidr_v10", what: "string") -> "string":
      - prefixlen: The prefix length of `addr` object.
      - netmask: The subnet mask of `addr` object.
      - network: The network address of `addr` object.
+
+    For instance:
+
+        | std::print(ipnet("192.168.1.100/24", "ip"))         -->  192.168.1.100
+        | std::print(ipnet("192.168.1.100/24", "prefixlen"))  -->  24
+        | std::print(ipnet("192.168.1.100/24", "netmask"))    -->  255.255.255.0
+        | std::print(ipnet("192.168.1.100/24", "network"))    -->  192.168.1.0
     """
     net = netaddr.IPNetwork(addr)
     if what == "ip":
