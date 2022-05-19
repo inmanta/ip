@@ -1,3 +1,6 @@
+# v 1.2.9
+- add docstring for ipnet plugin
+
 # v 1.2.8
 - Remove pytest.ini and move its logic to pyproject.toml
 
