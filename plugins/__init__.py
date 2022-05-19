@@ -76,10 +76,10 @@ def ipnet(addr: "ip::cidr_v10", what: "string") -> "string":
     :param addr: CIDR
     :param what: The required result:
 
-     - ip: The IP address of `addr` object
-     - prefixlen: The prefix length of `addr` object
-     - netmask: The subnet mask of `addr` object
-     - network: The network address of `addr` object
+     - ip: The IP address of `addr` object.
+     - prefixlen: The prefix length of `addr` object.
+     - netmask: The subnet mask of `addr` object.
+     - network: The network address of `addr` object.
     """
     net = netaddr.IPNetwork(addr)
     if what == "ip":
