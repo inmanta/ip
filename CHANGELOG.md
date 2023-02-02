@@ -1,45 +1,45 @@
-# v 1.2.9
+# Changelog
 
 ## v1.2.15 - ?
 
 
-
+## v1.2.9
 - add docstring for ipnet plugin
 
-# v 1.2.8
+## v1.2.8
 - Remove pytest.ini and move its logic to pyproject.toml
 
-# v 1.2.7
+## v1.2.7
 - Add pytest.ini file and set asyncio_mode to auto
 
-# v 1.2.5
+## v1.2.5
 - Use conditional requirement for inmanta-dev-dependencies package
 
-# v 1.2.2
+## v1.2.2
 - Update dependency versions
 
-# v 1.1.7
+## v1.1.7
 - Update development dependencies 
 
-# v 1.1.6
+## v1.1.6
 - Use inmanta-dev-dependencies package
 
-# v 1.1.5
+## v1.1.5
 - Remove the importlib-resources dependency
 
-# v 1.1.4
+## v1.1.4
 - Update dependencies
 
-# v 1.1.3
+## v1.1.3
 - pin dependencies using ~=
 
-# v 1.1.2
+## v1.1.2
 - pin transitive dependencies
 
-# v 1.1.1
+## v1.1.1
 - use new relation syntax
 
-# v 1.0.1
+## v1.0.1
 
 ## Added 
 
