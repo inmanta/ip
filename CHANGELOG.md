@@ -1,6 +1,6 @@
 # Changelog
 
-## v1.2.17 - ?
+## v1.2.17 - 2023-05-08
 
 - Convert constraints in requirements.txt file
 
