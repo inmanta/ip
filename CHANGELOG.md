@@ -2,6 +2,7 @@
 
 ## v1.2.19 - ?
 
+- Make sure that ip::port is always an integer
 
 ## v1.2.18 - 2023-06-30
 
