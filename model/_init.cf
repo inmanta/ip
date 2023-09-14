@@ -23,7 +23,7 @@ typedef cidr as string matching ip::is_valid_cidr(self) == true
 
 typedef protocol as string matching
     self == "tcp" or self == "udp" or self == "icmp" or self == "sctp" or self == "all"
-typedef port as number matching self >= 0 and self < 65536
+typedef port as int matching self >= 0 and self < 65536
 
 typedef cidr_v6 as string matching ip::is_valid_cidr_v6(self) == true
 typedef ip_v6 as string matching ip::is_valid_ip_v6(self) == true
