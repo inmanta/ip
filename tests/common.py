@@ -15,14 +15,10 @@
 
     Contact: code@inmanta.com
 """
+import pytest
 from inmanta.ast import RuntimeException
 
 
-def assert_compilation_error(project, model, error_message):
-    exception_occured = False
-    try:
+def assert_compilation_error(project, model: str, error_message: str):
+    with pytest.raises(RuntimeException, match=error_message):
         project.compile(model)
-    except RuntimeException as e:
-        exception_occured = True
-        assert error_message in e.msg
-    assert exception_occured

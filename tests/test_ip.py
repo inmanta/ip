@@ -32,7 +32,9 @@ def test_hostname_in_model(project):
 
         ip::hostname(true)
     """
-    assert_compilation_error(project, model, "Invalid value 'True', expected String")
+    assert_compilation_error(
+        project, model, "Invalid value 'True', expected (S|s)tring"
+    )
 
 
 def test_network(project):
@@ -58,7 +60,7 @@ def test_network_in_model_invalid_cidr(project):
         # Pass cidr as number instead of string
         ip::network("192.168.125.40", 24)
     """
-    assert_compilation_error(project, model, "Invalid value '24', expected String")
+    assert_compilation_error(project, model, "Invalid value '24', expected (s|S)tring")
 
 
 def test_cidr_to_network(project):
@@ -73,7 +75,9 @@ def test_cidr_to_network_in_model_invalid_cidr(project):
 
         ip::cidr_to_network(true)
     """
-    assert_compilation_error(project, model, "Invalid value 'True', expected String")
+    assert_compilation_error(
+        project, model, "Invalid value 'True', expected (s|S)tring"
+    )
 
 
 def test_netmask(project):
@@ -89,7 +93,7 @@ def test_netmask_in_model_invalid_type(project):
         # Pass string type instead of number
         ip::netmask("16")
     """
-    assert_compilation_error(project, model, "Invalid value '16', expected Number")
+    assert_compilation_error(project, model, "Invalid value '16', expected (N|n)umber")
 
 
 def test_concat(project):
@@ -105,7 +109,7 @@ def test_concat_in_model_invalid_host(project):
 
         ip::concat("a$b", "domain.test")
     """
-    assert_compilation_error(project, model, "Invalid value 'a$b'")
+    assert_compilation_error(project, model, r"Invalid value 'a\$b'")
 
 
 def test_concat_in_model_invalid_domain(project):
@@ -129,7 +133,9 @@ def test_net_to_nm_in_model_invalid_network_address(project):
 
         ip::net_to_nm(true)
     """
-    assert_compilation_error(project, model, "Invalid value 'True', expected String")
+    assert_compilation_error(
+        project, model, "Invalid value 'True', expected (s|S)tring"
+    )
 
 
 @pytest.mark.parametrize(
@@ -197,7 +203,7 @@ def test_ipindex_in_model_invalid_position(project):
         # Pass position as string type instead of number
         ip::ipindex("192.125.125.22/24", "16")
     """
-    assert_compilation_error(project, model, "Invalid value '16', expected Number")
+    assert_compilation_error(project, model, "Invalid value '16', expected (N|n)umber")
 
 
 def test_add(project):
@@ -239,4 +245,4 @@ def test_add_in_model_invalid_n_value(project):
 
         ip::add("ffff::ffff", "128")
     """
-    assert_compilation_error(project, model, "Invalid value '128', expected Number")
+    assert_compilation_error(project, model, "Invalid value '128', expected (N|n)umber")
