@@ -1,6 +1,7 @@
 # Changelog
 
-## v1.2.20 - ?
+## v1.3.0 - ?
+- Use `std::ipv_any_address` for `Host.ip`
 
 
 ## v1.2.19 - 2023-10-12

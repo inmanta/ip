@@ -52,7 +52,7 @@ entity Host extends std::Host:
         :attr remote_user: The remote user for the remote agent to login with
         :attr remote_port: The remote port for this remote agent to use.
     """
-    ip::ip ip
+    std::ipv_any_address ip
     bool remote_agent=false
     string remote_user="root"
     port remote_port=22
