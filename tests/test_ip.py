@@ -89,7 +89,7 @@ def test_netmask_in_model_invalid_type(project):
         # Pass string type instead of number
         ip::netmask("16")
     """
-    assert_compilation_error(project, model, "Invalid value '16', expected Number")
+    assert_compilation_error(project, model, "Invalid value '16', expected number")
 
 
 def test_concat(project):
@@ -197,7 +197,7 @@ def test_ipindex_in_model_invalid_position(project):
         # Pass position as string type instead of number
         ip::ipindex("192.125.125.22/24", "16")
     """
-    assert_compilation_error(project, model, "Invalid value '16', expected Number")
+    assert_compilation_error(project, model, "Invalid value '16', expected number")
 
 
 def test_add(project):
@@ -239,4 +239,4 @@ def test_add_in_model_invalid_n_value(project):
 
         ip::add("ffff::ffff", "128")
     """
-    assert_compilation_error(project, model, "Invalid value '128', expected Number")
+    assert_compilation_error(project, model, "Invalid value '128', expected number")
