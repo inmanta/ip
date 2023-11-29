@@ -32,7 +32,9 @@ def test_hostname_in_model(project):
 
         ip::hostname(true)
     """
-    assert_compilation_error(project, model, "Invalid value 'True', expected (S|s)tring")
+    assert_compilation_error(
+        project, model, "Invalid value 'True', expected (S|s)tring"
+    )
 
 
 def test_network(project):
@@ -73,7 +75,9 @@ def test_cidr_to_network_in_model_invalid_cidr(project):
 
         ip::cidr_to_network(true)
     """
-    assert_compilation_error(project, model, "Invalid value 'True', expected (s|S)tring")
+    assert_compilation_error(
+        project, model, "Invalid value 'True', expected (s|S)tring"
+    )
 
 
 def test_netmask(project):
@@ -129,7 +133,9 @@ def test_net_to_nm_in_model_invalid_network_address(project):
 
         ip::net_to_nm(true)
     """
-    assert_compilation_error(project, model, "Invalid value 'True', expected (s|S)tring")
+    assert_compilation_error(
+        project, model, "Invalid value 'True', expected (s|S)tring"
+    )
 
 
 @pytest.mark.parametrize(
