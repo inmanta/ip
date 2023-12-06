@@ -1,6 +1,7 @@
 # Changelog
 
 ## v1.3.2 - ?
+- defer to std::Host and its implementations for compatibility
 
 
 ## v1.3.1 - 2023-12-06
