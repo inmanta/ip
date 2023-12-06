@@ -1,6 +1,6 @@
 # Changelog
 
-## v1.3.0 - ?
+## v1.3.0 - 2023-12-06
 - Use `std::ipv_any_address` for `Host.ip`
 - Deprecate the ip module
 
