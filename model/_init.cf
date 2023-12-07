@@ -23,7 +23,7 @@ typedef cidr as string matching ip::is_valid_cidr(self) == true
 
 typedef protocol as string matching
     self == "tcp" or self == "udp" or self == "icmp" or self == "sctp" or self == "all"
-typedef port as int matching self >= 0 and self < 65536
+typedef port as number matching self >= 0 and self < 65536
 
 typedef cidr_v6 as string matching ip::is_valid_cidr_v6(self) == true
 typedef ip_v6 as string matching ip::is_valid_ip_v6(self) == true
@@ -44,10 +44,31 @@ typedef mask as string matching ip::is_valid_netmask(self)
 
 entity Host extends std::Host:
     """
-        Like std::Host, kept for backwards compatibility.
+        A host that has an ip attribute for easy ip address access in the configuration
+        model.
+
+        :attr ip: The ipaddress of this node
+        :attr remote_agent: Start the mgmt agent for this node on the server and use remote io (ssh)
+        :attr remote_user: The remote user for the remote agent to login with
+        :attr remote_port: The remote port for this remote agent to use.
     """
+    ip::ip ip
+    bool remote_agent=false
+    string remote_user="root"
+    port remote_port=22
 end
 implement Host using std::hostDefaults
+
+implementation agentConfig for std::HostConfig:
+    std::AgentConfig(
+        autostart=true,
+        agentname=host.name,
+        uri=std::template("ip/host_uri.j2"),
+        provides=host,
+    )
+end
+
+implement std::HostConfig using agentConfig when host.ip is defined and host.remote_agent
 
 entity IP:
     """

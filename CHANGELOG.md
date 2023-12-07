@@ -1,17 +1,18 @@
 # Changelog
 
-## v1.3.3 - ?
+## v1.3.3 - 2023-12-07
+- reverted breaking changes
 
 
-## v1.3.2 - 2023-12-06
+## (yanked) v1.3.2 - 2023-12-06
 - defer to std::Host and its implementations for compatibility
 
 
-## v1.3.1 - 2023-12-06
+## (yanked) v1.3.1 - 2023-12-06
 - made port an int
 
 
-## v1.3.0 - 2023-12-06
+## (yanked) v1.3.0 - 2023-12-06
 - Use `std::ipv_any_address` for `Host.ip`
 - Deprecate the ip module
 
