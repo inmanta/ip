@@ -1,7 +1,7 @@
 author: Inmanta <code@inmanta.com>
 license: Apache 2.0
 name: ip
-version: 1.3.4
+version: 1.3.5.dev0
 compiler_version: 2016.5
 requires:
     - std<5
