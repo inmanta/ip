@@ -139,7 +139,9 @@ def test_is_valid_ip_in_model_invalid_ip(project):
 
         ip::is_valid_ip(true)
     """
-    assert_compilation_error(project, model, "Invalid value 'True', expected String")
+    assert_compilation_error(
+        project, model, "Invalid value 'True', expected (S|s)tring"
+    )
 
 
 def test_is_valid_cidr_v10(project):
@@ -161,7 +163,9 @@ def test_test_is_valid_cidr_v10_in_model_invalid_ip(project):
 
         ip::is_valid_cidr_v10(true)
     """
-    assert_compilation_error(project, model, "Invalid value 'True', expected String")
+    assert_compilation_error(
+        project, model, "Invalid value 'True', expected (S|s)tring"
+    )
 
 
 def test_is_valid_ip_v10(project):
@@ -181,7 +185,9 @@ def test_test_is_valid_ip_v10_in_model_invalid_ip(project):
 
         ip::is_valid_ip_v10(true)
     """
-    assert_compilation_error(project, model, "Invalid value 'True', expected String")
+    assert_compilation_error(
+        project, model, "Invalid value 'True', expected (S|s)tring"
+    )
 
 
 def test_is_valid_netmask(project):
