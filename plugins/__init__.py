@@ -15,6 +15,7 @@
 
     Contact: code@inmanta.com
 """
+
 import netaddr
 from inmanta.plugins import plugin
 
