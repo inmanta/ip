@@ -15,6 +15,7 @@
 
     Contact: code@inmanta.com
 """
+
 import inmanta.ast
 import pytest
 

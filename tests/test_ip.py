@@ -15,6 +15,7 @@
 
     Contact: code@inmanta.com
 """
+
 import pytest
 
 from common import assert_compilation_error
