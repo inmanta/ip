@@ -19,6 +19,13 @@
 import netaddr
 from inmanta.plugins import plugin
 
+NETADDR_IP_FLAGS: int
+try:
+    NETADDR_IP_FLAGS = netaddr.INET_ATON
+except AttributeError:
+    # older versions of netaddr do not expose this option but have it as the default
+    NETADDR_IP_FLAGS = 0
+
 
 @plugin
 def hostname(fqdn: "string") -> "string":
@@ -115,7 +122,7 @@ def ipindex(addr: "ip::cidr_v10", position: "number") -> "string":
 @plugin
 def is_valid_ip(addr: "string") -> "bool":
     try:
-        net = netaddr.IPAddress(addr)
+        net = netaddr.IPAddress(addr, flags=NETADDR_IP_FLAGS)
         return net.version == 4
     except Exception:
         return False
@@ -135,7 +142,7 @@ def is_valid_cidr_v6(addr: "string") -> "bool":
 @plugin
 def is_valid_ip_v6(addr: "string") -> "bool":
     try:
-        net = netaddr.IPAddress(addr)
+        net = netaddr.IPAddress(addr, flags=NETADDR_IP_FLAGS)
         return net.version == 6
     except Exception:
         return False
@@ -172,7 +179,7 @@ def is_valid_ip_v10(addr: "string") -> "bool":
     Validate if the string matches a v6 or v4 address
     """
     try:
-        netaddr.IPAddress(addr)
+        netaddr.IPAddress(addr, flags=NETADDR_IP_FLAGS)
         return True
     except Exception:
         return False
@@ -183,7 +190,7 @@ def add(addr: "ip::ip_v10", n: "number") -> "ip::ip_v10":
     """
     Add a number to the given ip.
     """
-    return str(netaddr.IPAddress(addr) + n)
+    return str(netaddr.IPAddress(addr, flags=NETADDR_IP_FLAGS) + n)
 
 
 @plugin
@@ -192,6 +199,6 @@ def is_valid_netmask(netmask: "string") -> "bool":
     Validate if the string matches a netmask
     """
     try:
-        return netaddr.IPAddress(netmask).is_netmask()
+        return netaddr.IPAddress(netmask, flags=NETADDR_IP_FLAGS).is_netmask()
     except Exception:
         return False
